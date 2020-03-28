@@ -21,20 +21,34 @@
             font-size: 120pt;
             border-style: none;
         }
+        p {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        /* input {
+  color: transparent;
+  text-shadow: 0 0 0 #2196f3;
+
+  &:focus {
+      outline: none;
+  }
+} */
     </style>
 
 </head>
 
 <body>
     <div><img id="image"/> </div>
+    <p></p>
     <div id="wordq"><input id="wordw" type="text"></div>
     <!-- <div id="word"></div> -->
     
 
     <script>
         const game = {
-            words: ['bola', 'agua'],
-            //words: ['bola', 'agua', 'cama', 'cavalo', 'gato', 'sol', 'chuva', 'casa'],
+            //words: ['bola', 'agua'],
+            words: ['bola', 'agua', 'cama', 'cavalo', 'gato', 'sol', 'chuva', 'casa'],
             //words: ['casa', 'bola', 'sol', 'lua', 'urso', 'gato', 'agua', 'cama', 'mmae', 'papai', 'vovo', 'vovo', 'carro'],
             currentWord: {
                 value: '',
@@ -46,6 +60,7 @@
 
         document.querySelector("#wordw").addEventListener('keyup', (event) => {
             const letter = event.key.toUpperCase()
+            document.querySelector("p").innerHTML = `${event.key} - ${event.keyCode} - ${event.which}`
 
             checkCorrectLetter(letter)
 
