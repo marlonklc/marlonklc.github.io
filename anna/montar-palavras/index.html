@@ -16,10 +16,19 @@
             font-size: 120pt;
             color: rgb(0, 0, 0);
         }
-        input {
+        /* input {
+            width: 100%;
             font-size: 120pt;
-            width: 100px;
             border-style: none;
+        } */
+        input {
+            color: transparent;
+            text-shadow: 0 0 0 #000000;
+            font-size: 120pt;
+
+            &:focus {
+                outline: none;
+            }
         }
     </style>
 
@@ -27,15 +36,14 @@
 
 <body>
     <div><img id="image"/> </div>
-    <!-- <div id="wordq"><input id="wordw" type="text"></div> -->
-    <div id="word"></div>
-    
-    <input id="input_hide" type="text" value="a"/>
+    <div id="wordq"><input id="wordw" type="text"></div>
+    <!-- <div id="word"></div> -->
     
 
     <script>
         const game = {
-            words: ['bola', 'agua', 'cama', 'cavalo', 'gato', 'sol', 'chuva', 'casa'],
+            words: ['bola'],
+            //words: ['bola', 'agua', 'cama', 'cavalo', 'gato', 'sol', 'chuva', 'casa'],
             //words: ['casa', 'bola', 'sol', 'lua', 'urso', 'gato', 'agua', 'cama', 'mmae', 'papai', 'vovo', 'vovo', 'carro'],
             currentWord: {
                 value: '',
@@ -75,12 +83,12 @@
                 else word += '_ '
                 count++
             })
-            printWord(word)
+            printWord(word.trim())
         }
 
         function printWord(word) {
-            //document.querySelector("#wordw").value = word
-            document.querySelector("#word").innerHTML = word
+            document.querySelector("#wordw").value = word
+            //document.querySelector("#word").innerHTML = word
         }
 
         function startNewWord() {
@@ -89,20 +97,19 @@
                 game.currentWord.size = game.currentWord.value.length
                 game.currentWord.letterPosition = 0
                 document.querySelector("#image").src = `./images/${game.currentWord.value}.jpg`
-                //document.querySelector("#wordw").style = `width: ${game.currentWord.size * 130}px`
+                document.querySelector("#wordw").style = `width: ${game.currentWord.size * 150}px`
                 
                 generateWord()
             } else {
-                printWord('<br>PARABÉNS!')
-                //document.querySelector("#image").src = ''
-                document.querySelector("#word").style = 'color: blue'
+                printWord('PARABÉNS!')
+                document.querySelector("#image").src = ''
+                document.querySelector("#wordw").style = 'margin-top: 15%; color: blue; font-size: 100pt; width: 800px'
             }
         }
         
         startNewWord()
 
-        document.querySelector("#input_hide").focus()
-        document.querySelector("#input_hide").click()
+        document.querySelector("#wordw").focus()
     </script>
 </body>
 </html>
