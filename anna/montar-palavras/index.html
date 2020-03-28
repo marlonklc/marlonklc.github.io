@@ -52,7 +52,7 @@
             }
         }
         
-        $('input').keyup(function(event) {
+        $('input').on('keyup input', function(event) {
             document.querySelector("p").innerHTML = `${event.key} - ${event.keyCode} - ${event.which} - ${event.keyIdentifier}`
         })
 
