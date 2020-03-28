@@ -33,7 +33,7 @@
 
     <script>
         const game = {
-            words: ['bola'],
+            words: ['bola', 'agua'],
             //words: ['bola', 'agua', 'cama', 'cavalo', 'gato', 'sol', 'chuva', 'casa'],
             //words: ['casa', 'bola', 'sol', 'lua', 'urso', 'gato', 'agua', 'cama', 'mmae', 'papai', 'vovo', 'vovo', 'carro'],
             currentWord: {
@@ -44,7 +44,7 @@
         }
         
 
-        document.addEventListener('keyup', (event) => {
+        document.querySelector("#wordw").addEventListener('keyup', (event) => {
             const letter = event.key.toUpperCase()
 
             checkCorrectLetter(letter)
