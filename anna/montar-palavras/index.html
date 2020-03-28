@@ -27,9 +27,11 @@
 
 <body>
     <div><img id="image"/> </div>
-    <!-- <div id="worda"><input id="ww" type="text"></div> -->
+    <!-- <div id="wordq"><input id="wordw" type="text"></div> -->
     <div id="word"></div>
-    <input id="input_hide" type="text" style="display: none;"/>
+    
+    <input id="input_hide" type="text" value="a"/>
+    
 
     <script>
         const game = {
@@ -77,7 +79,7 @@
         }
 
         function printWord(word) {
-            //document.querySelector("#word").value = word
+            //document.querySelector("#wordw").value = word
             document.querySelector("#word").innerHTML = word
         }
 
@@ -87,12 +89,12 @@
                 game.currentWord.size = game.currentWord.value.length
                 game.currentWord.letterPosition = 0
                 document.querySelector("#image").src = `./images/${game.currentWord.value}.jpg`
-                //document.querySelector("#word").style = `width: ${game.currentWord.size * 130}px`
+                //document.querySelector("#wordw").style = `width: ${game.currentWord.size * 130}px`
                 
                 generateWord()
             } else {
                 printWord('<br>PARABÉNS!')
-                document.querySelector("#image").src = ''
+                //document.querySelector("#image").src = ''
                 document.querySelector("#word").style = 'color: blue'
             }
         }
@@ -100,6 +102,7 @@
         startNewWord()
 
         document.querySelector("#input_hide").focus()
+        document.querySelector("#input_hide").click()
     </script>
 </body>
 </html>
