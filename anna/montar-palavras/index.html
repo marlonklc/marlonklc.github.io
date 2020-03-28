@@ -39,7 +39,7 @@
     </div>
     <!-- <div id="word"></div> -->
     
-
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script>
         const game = {
             //words: ['bola', 'agua'],
@@ -52,20 +52,23 @@
             }
         }
         
-
-        document.addEventListener('keypress', (event) => {          
-            const letter = event.key.toUpperCase()
+        $('input').keyup(function(event) {
             document.querySelector("p").innerHTML = `${event.key} - ${event.keyCode} - ${event.which} - ${event.keyIdentifier}`
-
-            checkCorrectLetter(letter)
-
-            if (wordIsCompleted()) {
-                generateWord()
-                document.querySelector("#wordw").style.color = '#0177ff'
-                setTimeout(startNewWord, 2000);
-            }
-            else generateWord()
         })
+
+        // document.addEventListener('keyup', (event) => {          
+        //     const letter = event.key.toUpperCase()
+        //     document.querySelector("p").innerHTML = `${event.key} - ${event.keyCode} - ${event.which} - ${event.keyIdentifier}`
+
+        //     checkCorrectLetter(letter)
+
+        //     if (wordIsCompleted()) {
+        //         generateWord()
+        //         document.querySelector("#wordw").style.color = '#0177ff'
+        //         setTimeout(startNewWord, 2000);
+        //     }
+        //     else generateWord()
+        // })
 
         function checkCorrectLetter(letter) {
             if (game.currentWord.value.charAt(game.currentWord.letterPosition).toUpperCase() === letter.toUpperCase()) {
