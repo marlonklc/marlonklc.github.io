@@ -53,7 +53,7 @@
         }
         
 
-        document.querySelector("#wordw").addEventListener('keypress', (event) => {          
+        document.addEventListener('keypress', (event) => {          
             const letter = event.key.toUpperCase()
             document.querySelector("p").innerHTML = `${event.key} - ${event.keyCode} - ${event.which} - ${event.keyIdentifier}`
 
