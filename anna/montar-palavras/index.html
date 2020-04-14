@@ -16,20 +16,13 @@
             font-size: 120pt;
             color: rgb(0, 0, 0);
         }
-        input {
-            font-size: 120pt;
-            width: 100px;
-            border-style: none;
-        }
     </style>
 
 </head>
 
 <body>
     <div><img id="image"/> </div>
-    <!-- <div id="worda"><input id="ww" type="text"></div> -->
     <div id="word"></div>
-    <input id="input_hide" type="text" style="display: none;"/>
 
     <script>
         const game = {
@@ -77,18 +70,15 @@
         }
 
         function printWord(word) {
-            //document.querySelector("#word").value = word
             document.querySelector("#word").innerHTML = word
         }
 
         function startNewWord() {
             game.currentWord.value = game.words.splice(Math.floor(Math.random()*game.words.length), 1)[0]
             if (game.currentWord.value) {
+                document.querySelector("#image").src = `./images/${game.currentWord.value}.jpg`
                 game.currentWord.size = game.currentWord.value.length
                 game.currentWord.letterPosition = 0
-                document.querySelector("#image").src = `./images/${game.currentWord.value}.jpg`
-                //document.querySelector("#word").style = `width: ${game.currentWord.size * 130}px`
-                
                 generateWord()
             } else {
                 printWord('<br>PARABÉNS!')
@@ -99,7 +89,6 @@
         
         startNewWord()
 
-        document.querySelector("#input_hide").focus()
     </script>
 </body>
 </html>
