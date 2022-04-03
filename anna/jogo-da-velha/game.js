@@ -26,31 +26,55 @@ const ticTacToe = {
 
     start: function() {
         this.board.fill('');
-        this.draw();
+        this.startElements();
         this.gameover = false;
-        document.querySelector(".button-restart").classList.toggle('visible');
-        document.querySelector("#game").classList.toggle('disabled');
+        document.querySelector(".button-restart").classList.remove('visible');
+        document.querySelector("#game").classList.remove('disabled');
     },
 
-    makeAMove: async function(position) {
+    makeAMove: async function(element, position) {
         if (this.gameover) return;
-        
+
         if (this.board[position] === '') {
             const playerSymbol = this.player.symbols[this.player.turnIndex];
             this.board[position] = playerSymbol;
-            this.draw();
+            this.executeMove(element, playerSymbol);
+            this.player.toggleTurn();
 
             const hasWinningSequence = this.checkWinningSequences(playerSymbol);
 
             if (hasWinningSequence) {
-                this.gameover = true;
-                alert(`PLAYER ${playerSymbol} GANHOU!`);
-                document.querySelector(".button-restart").classList.toggle('visible');
-                document.querySelector("#game").classList.toggle('disabled');
+                alert(`PLAYER '${playerSymbol}' GANHOU!`);
+                this.gameOver();
+                return;
             }
 
-            this.player.toggleTurn();
+            const boarFinishedFinishedAllSpaces = this.checkBoardFinishedAllWhiteSpaces();
+
+            if (boarFinishedFinishedAllSpaces) {
+                alert('NINGUÉM GANHOU NESSA RODADA.');
+                this.gameOver();
+                return;
+            }
         }
+    },
+
+    executeMove: function(element, playerSymbol) {
+        const elementById = document.getElementById(element.id);
+        elementById.innerHTML = playerSymbol;
+        elementById.classList.add('disabled-selection');
+    },
+
+    gameOver: function() {
+        this.gameover = true;
+        document.querySelector(".button-restart").classList.add('visible');
+        document.querySelector("#game").classList.add('disabled');
+    },
+
+    checkBoardFinishedAllWhiteSpaces: function() {
+        const foundEmptySpace = this.board.find(i => i === '');
+        const allSpacesIsntEmpty = foundEmptySpace !== '';
+        return allSpacesIsntEmpty;
     },
 
     checkWinningSequences: function(playerSymbol) {
@@ -66,11 +90,11 @@ const ticTacToe = {
         return false;
     },
 
-    draw: function() {
+    startElements: function() {
         let content = '';
 
         for (i in this.board) {
-            content += "<div onClick=\"ticTacToe.makeAMove(" + i + ")\">" + this.board[i] + "</div>";
+            content += `<div id="space-${i}" onClick="ticTacToe.makeAMove(this, ${i})">${this.board[i]}</div>`;
         }
 
         this.containerElement.innerHTML = content
