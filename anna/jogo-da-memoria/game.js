@@ -1,6 +1,6 @@
 const memoryGame = {
     containerElement: null,
-    coverCard: 'pokebola.png',
+    coverCard: 'pokeball.png',
     firstCardFlipped: null,
     secondCardFlipped: null,
     timeToFlipUnmatchedCards: 1 * 1000, // 1 second
@@ -12,22 +12,33 @@ const memoryGame = {
         'butterfree.png',
         'charmander.png',
         'chikorita.png',
+        'pikachu.png',
         'dratini.png',
         'eevee.png',
-        // 'jigglypuff.png',
-        // 'mudkip.png',
-        // 'phanpy.png',
-        // 'pichu.png',
-        // 'pidgey.png',
-        // 'pikachu.png',
-        // 'psyduck.png',
-        // 'seel.png',
-        // 'slowpoke.png',
-        // 'squirtle.png',
+        'jigglypuff.png',
+        'mudkip.png',
+        'phanpy.png',
+        'pichu.png',
+        'pidgey.png',
+        'psyduck.png',
+        'seel.png',
+        'slowpoke.png',
+        'squirtle.png',
     ],
 
     init: function(element) {
         this.containerElement = element;
+        let amountOfCards = localStorage.getItem('game-amount-cards');
+        if (!amountOfCards) {
+            amountOfCards = 8;
+            localStorage.setItem('game-amount-cards', amountOfCards);
+        }
+
+        if (!!amountOfCards && this.images.length < amountOfCards) {
+            this.images = this.images.slice(0, this.images.length);
+        }
+            
+        this.images = this.images.slice(0, amountOfCards);
     },
 
     start: function() {
@@ -37,6 +48,8 @@ const memoryGame = {
     flipCard: function(element) {
         if (this.waitingFlipUnmatchedCards) return;
         if (this.firstCardFlipped === element) return;
+
+        playAudio('assets/audio/card-flip.mp3');
 
         element.classList.toggle("hidden-card");
 
@@ -74,6 +87,13 @@ const memoryGame = {
         this.secondCardFlipped.classList.remove('hidden-card');
         this.firstCardFlipped.attributes.removeNamedItem('onclick');
         this.secondCardFlipped.attributes.removeNamedItem('onclick');
+        document.getElementById('matched-animation').classList.toggle('display');
+        playAudio('assets/audio/pikachu-voice4.wav');
+
+        setTimeout(() => {
+            document.getElementById('matched-animation').classList.toggle('display');
+        }, 2000);
+
         this.cleanCardsState();
     },
 
@@ -87,14 +107,17 @@ const memoryGame = {
         for (i in this.images) {
             content += `
                 <div class="card hidden-card" data-card="card-${i}" onClick="memoryGame.flipCard(this)">
-                    <img class="card-back-face" src="images/pokemons/${this.images[i]}"/>
-                    <img class="card-front-face" src="images/${this.coverCard}"/>
+                    <img class="card-back-face" src="assets/images/pokemons/${this.images[i]}"/>
+                    <div class="card-front-face">
+                        <p>POKÉMON</p>
+                        <img src="assets/images/${this.coverCard}"/>
+                    </div>
                 </div>
             `;
         }
 
         this.containerElement.innerHTML = content + content;
-        this.shuffleCards();
+        //this.shuffleCards();
     },
 
     shuffleCards: function() {
@@ -106,3 +129,7 @@ const memoryGame = {
         });
     },
 };
+
+function playAudio(path) {
+    new Audio(path).play();
+}

@@ -7,30 +7,30 @@
 body {
     height: 100vh;
     display: flex;
-    background: #ffca09;
+    background: #e0e9f2;
 }
 
 #boardgame {
-    width: 1040px;
-    height: 800px;
+    width: 1000px;
+    height: auto;
     margin: 0 auto;
     display: flex;
     flex-wrap: wrap;
 }
 
-img {
+img, p {
     user-select: none;
     pointer-events: none;
 }
 
 .card {
-    width: calc(25% - 10px);
-    height: 25%; 
+    width: 230px;
+    height: 230px;
     margin: 5px;
     position: relative;
     border-radius: 5px;
-    background: #192652;
-    border: 1px solid #192652;
+    background: #223d67;
+    border: 7px solid #192652;
     transform-style: preserve-3d;
     transition: .5s;
     cursor: pointer;
@@ -48,13 +48,47 @@ img {
 .card-back-face {
     width: 100%;
     height: 100%;
+    min-width: 170px;
     padding: 20px;
-    background: #192652;
+    background: #223d67;
     border-radius: 5px;
     position: absolute;
     backface-visibility: hidden;
+    pointer-events: none;
 }
 
 .card-front-face {
+    text-align: center;
     transform: rotateY(180deg);
+    color: #ffcc00;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 1.5em;
+    font-weight: bold;
+    -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: #3c5fa7;
+}
+
+.card-back-face img {
+    width: 90%;
+}
+
+.card-front-face img {
+    width: 60%;
+    margin-top: 20px;
+    min-width: 120px;
+}
+
+#matched-animation {
+    position: absolute;
+    left: calc(50% - 100px);
+    top: calc(50% - 90px);
+    display: none;
+}
+
+.display {
+    display: block !important;
+}
+
+#matched-animation img {
+    width: 100%;
 }
