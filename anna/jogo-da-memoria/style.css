@@ -66,7 +66,7 @@ img, p {
 .card-back-face {
     background: #f12f29;
     color: #1e1e1e;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-family: Verdana, Geneva, Tahoma, sans-serif !important;
     text-transform: capitalize;
     font-size: 1em;
     font-weight: bold;
@@ -75,7 +75,7 @@ img, p {
 .card-front-face {
     transform: rotateY(180deg);
     color: #ffcc00;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-family: 'Luckiest Guy', cursive;
     font-size: 1.8em;
     font-weight: bold;
     -webkit-text-stroke-width: 2px;
@@ -107,4 +107,42 @@ img, p {
 
 .display {
     display: block !important;
+}
+
+.display-flex {
+    display: flex !important;
+}
+
+#final-animation {
+    width: 800px;
+    height: 60%;
+    position: absolute;
+    left: calc(50% - 400px);
+    top: 15%;
+    display: none;
+    align-items: center;
+    justify-items: center;
+}
+
+#final-animation p {
+    font-size: 3.5em;
+    width: 300px;
+    text-align: center;
+    word-wrap: normal;
+    font-weight: bold;
+    color: #ffcc00;
+    position: absolute;
+    left: calc(50% - 150px);
+    top: 0;
+    filter: drop-shadow(0px 0px 10px #000);
+}
+
+.final-animation-background {
+    width: 400px;
+}
+
+.final-animation-pikachu {
+    position: absolute;
+    bottom: 0;
+    left: calc(50% - 135px);
 }
