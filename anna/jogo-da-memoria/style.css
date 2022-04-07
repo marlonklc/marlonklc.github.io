@@ -8,7 +8,7 @@ body {
     height: 100vh;
     display: flex;
     background: #e0e9f2;
-    font-family: 'Luckiest Guy', cursive;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 path {
@@ -66,7 +66,6 @@ img, p {
 .card-back-face {
     background: #f12f29;
     color: #1e1e1e;
-    font-family: Verdana, Geneva, Tahoma, sans-serif !important;
     text-transform: capitalize;
     font-size: 1em;
     font-weight: bold;
@@ -75,7 +74,6 @@ img, p {
 .card-front-face {
     transform: rotateY(180deg);
     color: #ffcc00;
-    font-family: 'Luckiest Guy', cursive;
     font-size: 1.8em;
     font-weight: bold;
     -webkit-text-stroke-width: 2px;
