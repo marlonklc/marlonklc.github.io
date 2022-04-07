@@ -5,25 +5,25 @@ const memoryGame = {
     secondCardFlipped: null,
     timeToFlipUnmatchedCards: 1 * 1000, // 1 second
     waitingFlipUnmatchedCards: false,
-    images: [
-        'abra.png',
-        'aipom.png',
-        'bulbasaur.png',
-        'butterfree.png',
-        'charmander.png',
-        'chikorita.png',
-        'pikachu.png',
-        'dratini.png',
-        'eevee.png',
-        'jigglypuff.png',
-        'mudkip.png',
-        'phanpy.png',
-        'pichu.png',
-        'pidgey.png',
-        'psyduck.png',
-        'seel.png',
-        'slowpoke.png',
-        'squirtle.png',
+    cards: [
+        { image: 'abra.png', name: 'abra' },
+        { image: 'aipom.png', name: 'aipom' },
+        { image: 'bulbasaur.png', name: 'bulbasaur' },
+        { image: 'butterfree.png', name: 'butterfree' },
+        { image: 'charmander.png', name: 'charmander' },
+        { image: 'chikorita.png', name: 'chikorita' },
+        { image: 'pikachu.png', name: 'pikachu' },
+        { image: 'dratini.png', name: 'dratini' },
+        { image: 'eevee.png', name: 'eevee' },
+        { image: 'jigglypuff.png', name: 'jigglypuff' },
+        { image: 'mudkip.png', name: 'mudkip' },
+        { image: 'phanpy.png', name: 'phanpy' },
+        { image: 'pichu.png', name: 'pichu' },
+        { image: 'pidgey.png', name: 'pidgey' },
+        { image: 'psyduck.png', name: 'psyduck' },
+        { image: 'seel.png', name: 'seel' },
+        { image: 'slowpoke.png', name: 'slowpoke' },
+        { image: 'squirtle.png', name: 'squirtle' },
     ],
 
     init: function(element) {
@@ -34,11 +34,11 @@ const memoryGame = {
             localStorage.setItem('game-amount-cards', amountOfCards);
         }
 
-        if (!!amountOfCards && this.images.length < amountOfCards) {
-            this.images = this.images.slice(0, this.images.length);
+        if (!!amountOfCards && this.cards.length < amountOfCards) {
+            this.cards = this.cards.slice(0, this.cards.length);
         }
             
-        this.images = this.images.slice(0, amountOfCards);
+        this.cards = this.cards.slice(0, amountOfCards);
     },
 
     start: function() {
@@ -49,7 +49,7 @@ const memoryGame = {
         if (this.waitingFlipUnmatchedCards) return;
         if (this.firstCardFlipped === element) return;
 
-        playAudio('assets/audio/card-flip.mp3');
+        playAudio('assets/audio/card-flip.mp3', VOLUME.LOW);
 
         element.classList.toggle("hidden-card");
 
@@ -88,7 +88,7 @@ const memoryGame = {
         this.firstCardFlipped.attributes.removeNamedItem('onclick');
         this.secondCardFlipped.attributes.removeNamedItem('onclick');
         document.getElementById('matched-animation').classList.toggle('display');
-        playAudio('assets/audio/pikachu-voice4.wav');
+        playAudio('assets/audio/pikachu-voice4.wav', VOLUME.HIGH);
 
         setTimeout(() => {
             document.getElementById('matched-animation').classList.toggle('display');
@@ -104,10 +104,13 @@ const memoryGame = {
     startElements: function() {
         let content = '';
 
-        for (i in this.images) {
+        for (i in this.cards) {
             content += `
                 <div class="card hidden-card" data-card="card-${i}" onClick="memoryGame.flipCard(this)">
-                    <img class="card-back-face" src="assets/images/pokemons/${this.images[i]}"/>
+                    <div class="card-back-face">
+                        <img src="assets/images/pokemons/${this.cards[i].image}"/>
+                        <p>${this.cards[i].name}</p>
+                    </div>
                     <div class="card-front-face">
                         <p>POKÉMON</p>
                         <img src="assets/images/${this.coverCard}"/>
@@ -117,11 +120,11 @@ const memoryGame = {
         }
 
         this.containerElement.innerHTML = content + content;
-        //this.shuffleCards();
+        this.shuffleCards();
     },
 
     shuffleCards: function() {
-        const sizeOfChildren = this.containerElement.children.length * 2;
+        const sizeOfChildren = this.containerElement.children.length * 5;
 
         Array.from(this.containerElement.children).forEach(child => {
             let randomPosition = Math.floor(Math.random() * sizeOfChildren);
@@ -130,6 +133,13 @@ const memoryGame = {
     },
 };
 
-function playAudio(path) {
-    new Audio(path).play();
+const VOLUME = {
+    HIGH: .3,
+    LOW: .1,
+};
+
+function playAudio(path, volume) {
+    const audio = new Audio(path);
+    audio.volume = volume;
+    audio.play();
 }

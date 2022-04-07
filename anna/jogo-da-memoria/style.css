@@ -8,6 +8,11 @@ body {
     height: 100vh;
     display: flex;
     background: #e0e9f2;
+    font-family: 'Luckiest Guy', cursive;
+}
+
+path {
+    fill: transparent;
 }
 
 #boardgame {
@@ -49,6 +54,7 @@ img, p {
     width: 100%;
     height: 100%;
     min-width: 170px;
+    text-align: center;
     padding: 20px;
     background: #223d67;
     border-radius: 5px;
@@ -57,38 +63,48 @@ img, p {
     pointer-events: none;
 }
 
+.card-back-face {
+    background: #f12f29;
+    color: #1e1e1e;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-transform: capitalize;
+    font-size: 1em;
+    font-weight: bold;
+}
+
 .card-front-face {
-    text-align: center;
     transform: rotateY(180deg);
     color: #ffcc00;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-    font-size: 1.5em;
+    font-size: 1.8em;
     font-weight: bold;
     -webkit-text-stroke-width: 2px;
-    -webkit-text-stroke-color: #3c5fa7;
+    -webkit-text-stroke-color: #3c5fa7;    
+    text-shadow: -2px 3px 0 #182c5f;
 }
 
 .card-back-face img {
-    width: 90%;
+    width: 95%;
 }
 
 .card-front-face img {
-    width: 60%;
-    margin-top: 20px;
-    min-width: 120px;
+    width: 50%;
+    margin-top: 20%;
+    border-radius: 50%;
+    background: transparent;
+    border: none;
+    box-shadow: -3px 5px 5px #192652;
 }
 
 #matched-animation {
     position: absolute;
     left: calc(50% - 100px);
-    top: calc(50% - 90px);
+    top: calc(50% - 100px);
     display: none;
+    background-color: transparent;
+    filter: drop-shadow(0px 0px 40px #fff);
 }
 
 .display {
     display: block !important;
-}
-
-#matched-animation img {
-    width: 100%;
 }
