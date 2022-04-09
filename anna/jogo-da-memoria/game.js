@@ -36,7 +36,7 @@ const memoryGame = {
         this.containerElement = element;
         
         let amountOfCardsInLocalStorage = localStorage.getItem('game-amount-cards');
-        if (!!amountOfCardsInLocalStorage && this.config.cards.length < amountOfCardsInLocalStorage) {
+        if (!!amountOfCardsInLocalStorage && parseInt(amountOfCardsInLocalStorage) <= this.config.cards.length) {
             this.config.amountOfCardsInGame = amountOfCardsInLocalStorage;
         } else {
             localStorage.setItem('game-amount-cards', this.config.amountOfCardsInGame);
