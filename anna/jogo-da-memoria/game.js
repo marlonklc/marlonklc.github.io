@@ -47,7 +47,7 @@ const memoryGame = {
 
     start: function() {
         this.cleanCardsState();
-        this.state.matchedCards = 7;
+        this.state.matchedCards = 0;
         this.startElements();
     },
 
