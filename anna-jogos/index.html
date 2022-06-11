@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="utf-8">
+        <title>Anna's game list</title>
+        <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i|Open+Sans:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i">
+        <style>
+            * {
+                margin: 0;
+                padding: 0
+            }
+
+            body {
+                background-color: purple;
+                font-family: Montserrat;
+            }
+
+            .title {
+                width: 95%;
+                height: 15%;
+                margin: 2% auto;
+                color: #fff;
+            }
+
+            .title h1 {
+                font-size: 1.9rem;
+            }
+
+            .games-list {
+                height: auto;
+                width: 95%;
+                margin: 2% auto;
+                color: #fff;
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+                grid-gap: 15px;
+            }
+
+            .games-list div {
+                width: 100%;
+                background-color: #fff;
+                min-width: 340px;
+                height: 350px;
+                display: flex;
+                border-radius: 10px;
+                align-items: center;
+                flex-direction: column;
+                justify-content: space-around;
+            }
+
+            .games-list div a {
+                text-decoration: none;
+                display: flex;
+                align-items: center;
+                flex-direction: column;
+                justify-content: space-around;
+            }
+
+            .games-list div a p {
+                display: block;
+                font-size: 1.5rem;
+                color: #000;
+            }
+
+            .games-list div a img {
+                margin-top: 10px;
+                max-height: 250px;
+                max-width: 99%;
+                object-fit: contain;
+                border-radius: 5px;
+            }
+        </style>
+    </head>
+    <body>
+        <section class="title">
+            <h1>Anna's game list</h1>
+        </section>
+
+        <section id="list" class="games-list"></section>
+
+        <script>
+            const games = [
+                {name: 'JOGO DA MEMORIA', path: './jogo-da-memoria/', image: './jogo-memoria-picture.png'},
+                {name: 'JOGO MONTAR PALAVRAS', path: './montar-palavras/', image: './jogo-montar-palavras-picture.png'},
+                {name: 'JOGO PEGAR BOLHAS', path: './pegar-bolhas/', image: './jogo-pegar-bolhas.png'},
+                {name: 'JOGO DA VELHA', path: './jogo-da-velha/', image: './jogo-velha-picture.png'},
+            ];
+
+            games.forEach(game => {
+                document.querySelector('#list').innerHTML += `
+                    <div>
+                        <a href="${game.path}">
+                            <p>${game.name}</p>
+                            <img src="${game.image}"/>
+                        </a>
+                    </div>
+                `;
+            });
+        </script>
+    </body>
+</html>
