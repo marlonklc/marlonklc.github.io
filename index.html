@@ -1358,5 +1358,21 @@
       <style>.lazyload {display: none;}</style>
     </noscript>
     <script defer="" src="./assets/scripts.js"></script>
+    <script>
+      let cursor = 0;
+      const KONAMI_CODE = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
+      document.addEventListener('keydown', (e) => {
+        cursor = (e.keyCode == KONAMI_CODE[cursor]) ? cursor + 1 : 0;
+        if (cursor === KONAMI_CODE.length) {
+          const audio = new Audio('./assets/konami-song.mp3');
+          audio.volume = .5;
+          audio.play();
+
+          setTimeout(() => {
+            window.location = '/anna-jogos/';
+          }, 3000);
+        };
+      });
+    </script>
   </body>
 </html>
