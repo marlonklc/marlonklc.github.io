@@ -15,6 +15,7 @@
     <link rel="icon" href="./assets/favicon-code-128x128.png" sizes="128x128">
     <link rel="apple-touch-icon" href="./assets/favicon-code-128x128.png">
     <meta name="msapplication-TileImage" content="./assets/favicon-code-128x128.png">
+    <script defer src="./assets/personal-info.js"></script>
   </head>
 
   <body class="home page-template page-template-template-elementor-builder page-template-template-elementor-builder-php page page-id-31 theme-ryancv woocommerce-js elementor-default elementor-kit-134 elementor-page elementor-page-31 e--ua-blink e--ua-chrome e--ua-webkit"
@@ -46,13 +47,12 @@
           <div class="profile">
             <div class="image">
               <a href="https://github.com/marlonklc">
-                <noscript><img src="https://avatars.githubusercontent.com/u/9343013" alt="Marlon Klagenberg" /></noscript>
-                <img class="lazyload" src="https://avatars.githubusercontent.com/u/9343013" data-src="https://avatars.githubusercontent.com/u/9343013" alt="Marlon Klagenberg">
+                <noscript><img src="https://avatars.githubusercontent.com/u/9343013" alt="my avatar image" /></noscript>
+                <img class="lazyload" src="https://avatars.githubusercontent.com/u/9343013" data-src="https://avatars.githubusercontent.com/u/9343013" alt="my avatar image">
               </a>
             </div>
-            <div class="title">Marlon Klagenberg</div>
-            <div class="subtitle subtitle-typed">Software Developer</div>
-            <span class="typed-cursor">|</span>
+            <div class="title personal-info-shortname"></div>
+            <div class="subtitle personal-info-technologies"></div>
           </div>
           <div class="top-menu top-menu-onepage">
             <div class="menu-main-menu-container">
@@ -72,15 +72,12 @@
                 style="background-image: url('./assets/background.jpg');"></div>
               <div class="image">
                 <a href="https://github.com/marlonklc">
-                  <noscript><img src="https://avatars.githubusercontent.com/u/9343013"
-                      alt="Marlon Klagenberg" /></noscript>
-                  <img class=" lazyloaded" src="https://avatars.githubusercontent.com/u/9343013"
-                    data-src="https://avatars.githubusercontent.com/u/9343013" alt="Marlon Klagenberg">
+                  <noscript><img src="https://avatars.githubusercontent.com/u/9343013" alt="my avatar image" /></noscript>
+                  <img class=" lazyloaded" src="https://avatars.githubusercontent.com/u/9343013" data-src="https://avatars.githubusercontent.com/u/9343013" alt="my avatar image">
                 </a>
               </div>
-              <div class="title">Marlon Klagenberg</div>
-              <div class="subtitle subtitle-typed">Software Developer</div>
-              <span class="typed-cursor">|</span>
+              <div class="title personal-info-shortname"></div>
+              <div class="subtitle personal-info-technologies"></div>
               <div class="social">
                 <a target="_blank" href="https://github.com/marlonklc"><span class="fab fa-github"></span></a>
                 <a target="_blank" href="https://stackoverflow.com/users/6859760/marlon-klagenberg"><span
@@ -127,23 +124,24 @@
                                       <div class="row">
                                         <div class="col col-d-12 col-t-12 col-m-12 border-line-v">
                                           <div class="text-box">
-                                            <div>
-                                              <strong>Hello!!! I’m Marlon Klagenberg....</strong><br />
+                                            <div class="personal-info-aboutme">
+                                              <!-- <strong>Hello!!! I’m Marlon Klagenberg....</strong><br />
                                               Software Engineer from Brazil. I have rich experience in building
                                               applications to many customers and companies. On my free time I love to play
-                                              games and play with my daughter.
+                                              games and play with my daughter. -->
                                             </div>
                                           </div>
                                         </div>
                                         <div class="col col-d-12 col-t-12 col-m-12 border-line-v">
                                           <div class="info-list">
                                             <ul>
-                                              <li style="display: block; width: 100%;"><strong><span>Full
-                                                    name:</span></strong><span>Marlon Klagenberg Conceição</span></li>
                                               <li style="display: block; width: 100%;">
-                                                <strong><span>Age:</span></strong><span>30</span></li>
+                                                <strong><span>Full name:</span></strong><span class="personal-info-fullname"></span>
+                                              </li>
                                               <li style="display: block; width: 100%;">
-                                                <strong><span>Experience:</span></strong><span>10+ years</span></li>
+                                                <strong><span>Age:</span></strong><span class="personal-info-age"></span></li>
+                                              <li style="display: block; width: 100%;">
+                                                <strong><span>Experience:</span></strong><span class="personal-info-experiencetime"></span></li>
                                             </ul>
                                           </div>
                                         </div>
@@ -1282,10 +1280,9 @@
                                       <div class="col col-d-12 col-t-12 col-m-12 border-line-v">
                                         <div class="info-list">
                                           <ul>
-                                            <li><strong><span>Address:</span></strong><span>Rio Grande do Sul, BR</span>
-                                            </li>
-                                            <li><strong><span>Email:</span></strong><span>marlon.klc@gmail.com</span></li>
-                                            <li><strong><span>Phone:</span></strong> <span> +55 51 99563 4094</span></li>
+                                            <li><strong><span>Address:</span></strong><span class="personal-info-address"></span></li>
+                                            <li><strong><span>Email:</span></strong><span class="personal-info-email"></span></li>
+                                            <li><strong><span>Phone:</span></strong> <span class="personal-info-phone"></span></li>
                                           </ul>
                                         </div>
                                       </div>
@@ -1357,7 +1354,7 @@
     <noscript>
       <style>.lazyload {display: none;}</style>
     </noscript>
-    <script defer="" src="./assets/scripts.js"></script>
+    <script defer src="./assets/scripts.js"></script>
     <script>
       let cursor = 0;
       const KONAMI_CODE = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
