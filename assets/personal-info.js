@@ -17,35 +17,57 @@ const myPersonalInfo = {
     address: 'Rio Grande do Sul, BR',
     email: 'marlon.klc@gmail.com',
     phone: '+55 51 99563 4094',
-    technologies: ['Java', 'NodeJS', 'React', 'AWS'],
+    roles: ['Software Developer', 'Gamer', 'Daddy', 'Guitar Player'],
 };
 
 for (info in myPersonalInfo) {
-    console.log(info)
-    if (info === 'technologies') continue;
+    if (info === 'roles') continue;
     setHtmlOnClass(`personal-info-${info.toLowerCase()}`, myPersonalInfo[info])
+}
+
+function writeText(word, timeToWrite) {
+    if (!word) return;
+    let currentText = '';
+    let currentChar = 0;
+
+    const timer = setInterval(() => {
+        if (currentText.length >= word.length) clearInterval(timer);
+
+        currentText = word.substring(0, currentChar);
+        currentChar++;
+        if (currentText.length < word.length) currentText += '|';
+        
+        setHtmlOnClass('personal-info-roles', currentText);
+    }, timeToWrite / word.length);
+}
+
+function eraseText(word, timeToWrite) {
+    if (!word) return;
+    let currentText = word;
+    let currentChar = word.length - 1;
+
+    const timer = setInterval(() => {
+        if (currentText.length <= 0 || currentChar === 0) clearInterval(timer);
+
+        currentText = word.substring(0, currentChar);
+        currentChar--;
+
+        setHtmlOnClass('personal-info-roles', currentText + '|');
+    }, timeToWrite / word.length);
 }
 
 function startShuffleTechnologies() {
     let index = 0;
     setInterval(() => {
-        const word = myPersonalInfo.technologies[index];
-        //let currentText = '';
-        //let currentChar = 0;
+        const word = myPersonalInfo.roles[index];
+        
+        writeText(word, 900);
 
-        // const write = () => {
-        //     if (currentText.length >= word) return;
-            
-        //     console.log('times')
-        //     currentText = word.substring(0, currentChar);
-        //     currentChar++;
-        //     setHtmlOnClass('personal-info-technologies', currentText + '|');
-        // };
+        setTimeout(() => { eraseText(word, 900) }, 3500);
 
-        setHtmlOnClass('personal-info-technologies', word);
         index++;
-        if (index >= myPersonalInfo.technologies.length) index = 0;
-    }, 4000);
+        if (index >= myPersonalInfo.roles.length) index = 0;
+    }, 4500);
 }
 
 startShuffleTechnologies();
