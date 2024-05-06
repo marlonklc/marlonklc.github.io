@@ -1,0 +1,95 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgb(199,221,255);
+    background: radial-gradient(circle, rgba(199,221,255,1) 0%, rgba(95,168,255,1) 100%);
+}
+
+.button-menu {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    border: 1px solid #ccc;
+    background-color: #c7ddff;
+    color: #555;
+    font-size: 2em;
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+    transition: all .2s;
+    opacity: 1;
+}
+
+.button-menu:hover {
+    cursor: pointer;
+    background-color: #5fa8ff;
+    border: 3px solid #ccc;
+    color: #eee;
+}
+
+.button-menu__hide {
+    opacity: 0;
+    transition: all .1s;
+}
+
+#image-growth img {
+    max-height: 100%;
+    max-width: 100%;
+}
+
+.puzzle-message {
+    position: absolute;
+    bottom: 20px;
+}
+
+.images-selector {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background-color: #333;
+    opacity: 0;
+    display: none;
+    transition: opacity .3s;
+}
+
+.images-selector__show {
+    opacity: 0.7;
+    transition: opacity .3s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.images-title {
+    color: white;
+    font-size: 3em;
+}
+
+.images-container {
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    opacity: 1 !important;
+}
+
+.images-container img {
+    height: 25%;
+    width: 25%;
+    padding: 1vh 2vw;
+}
+
+.images-container img:hover {
+    transform: scale(1.15);
+    cursor: pointer;
+}
