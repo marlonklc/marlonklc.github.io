@@ -1,7 +1,9 @@
 class Bubble {
     
-    constructor(context) {
+    constructor(context, player) {
         this.context = context;
+        this.player = player;
+
         this.x = Math.random() * canvasPosition.width;
         this.y = canvas.height + 100;
         this.radius = 50;
@@ -19,8 +21,8 @@ class Bubble {
 
     update() {
         this.y -= this.speed;
-        const dx = this.x - player.x;
-        const dy = this.y - player.y;
+        const dx = this.x - this.player.x;
+        const dy = this.y - this.player.y;
         this.distance = Math.sqrt(dx * dx + dy * dy);
     }
 

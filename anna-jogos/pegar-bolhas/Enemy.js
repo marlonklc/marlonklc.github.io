@@ -1,7 +1,8 @@
 class Enemy {
-    constructor(context, canvas) {
+    constructor(context, canvas, player) {
         this.canvas = canvas;
         this.context = context;
+        this.player = player;
 
         this.x = this.canvas.width + 200;
         this.y = Math.random() * (this.canvas.height - 150) + 90;
@@ -9,9 +10,10 @@ class Enemy {
         this.speed = Math.random() * 2 + 2;
         this.frame = 0;
         this.frameX = 1;
-        this.frameY = 1;
+        this.frameY = 0;
         this.spriteWidth = 512;
         this.spriteHeight = 510;
+        this.hadCollision = false;
 
         this.image = new Image();
         this.image.src = 'images/enemy1.png';
@@ -26,14 +28,14 @@ class Enemy {
         // this.context.stroke();
         
         this.context.drawImage(this.image,
-            512,
-            0,
+            this.frameX * this.spriteWidth,
+            this.frameY * this.spriteHeight,
             this.spriteWidth,
             this.spriteHeight,
-            this.x,
-            this.y,
-            this.radius * 2.2,
-            this.radius * 2.2
+            this.x - 80,
+            this.y - 75,
+            this.radius * 2.5,
+            this.radius * 2.5
         );
     }
 
@@ -42,8 +44,12 @@ class Enemy {
 
         if (this.x < 0 - this.radius * 2) {
             this.x = this.canvas.width + 200;
-            this.y = Math.random() * (this.canvas.height - 150) + 90;
+            this.y = Math.random() * (this.canvas.height - 140) + 80;
             this.speed = Math.random() * 2 + 2;
         }
+
+        const dx = this.x - this.player.x;
+        const dy = this.y - this.player.y;
+        this.distance = Math.sqrt(dx * dx + dy * dy);
     }
 }

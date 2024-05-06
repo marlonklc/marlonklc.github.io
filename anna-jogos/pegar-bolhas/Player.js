@@ -50,7 +50,7 @@ class Player {
         // this.context.arc(this.x, this.y, this.radius, 0, Math.PI * 2)
         // this.context.fill()
         // this.context.closePath()
-        //this.context.fillRect(this.x, this.y, this.radius, 10)
+        // this.context.fillRect(this.x, this.y, this.radius, 10)
 
         this.context.save();
         this.context.translate(this.x, this.y);
