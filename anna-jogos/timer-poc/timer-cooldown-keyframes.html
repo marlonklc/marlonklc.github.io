@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gráfico de Pizza Dinâmico com Animação</title>
+  <style>
+    @property --angle {
+        syntax: "<angle>";
+        inherits: false;
+        initial-value: 0deg;
+    }
+
+    .skill {
+        position: relative;
+        border: 1px solid #ddd;
+        border-radius: 50%;
+        width: 100px;
+        height: 100px;
+        overflow: hidden;
+        cursor: pointer;
+        display: flex;
+        justify-items: center;
+        align-items: center;
+        justify-content: center;
+        color: #555;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .skill::before {
+        content: "";
+        background: conic-gradient(rgba(0, 0, 0, 0.3) var(--angle), rgba(0, 0, 0, 0.1) var(--angle));
+        animation: cooldown-animation var(--time) linear infinite;
+        position: absolute;
+        opacity: 0.9;
+        top: 0;
+        left: 0p;
+        height: 100%;
+        width: 100%;
+    }
+
+    @keyframes cooldown-animation {
+        0% {
+            --angle: 0deg;
+        }
+
+        100% {
+            --angle: 360deg;
+        }
+    }
+  </style>
+</head>
+<body>
+    <div>
+        <input id="timer-seconds" type="text" placeholder="tempo em segundos..."/>
+        <button id="timer-creator">Criar</button>
+    </div>
+
+    <script>
+        const SECOND_IN_MS = 1000;
+        const UPDATE_INTERVAL = parseInt(SECOND_IN_MS / 30); // frames per second
+
+        const startTimer = (target) => {
+            // cooldown time
+            const datasetTime = target.dataset.time;
+            let time = parseInt(datasetTime);
+
+            target.style = `--time: ${(datasetTime / SECOND_IN_MS)}s;`;
+            
+            // update remaining cooldown
+            const intervalID = setInterval(() => {
+                // display time left
+                target.textContent = (time / SECOND_IN_MS).toFixed(2);
+                time -= UPDATE_INTERVAL;
+                
+                // stop timer when there is no time left
+                if (time < 0) {
+                    target.textContent = '';
+                    target.style = '';
+                    
+                    clearInterval(intervalID);
+
+                    target.remove();
+                }
+            }, UPDATE_INTERVAL);
+        }
+
+        document.querySelector('#timer-creator').addEventListener('click', (event) => {
+
+            const timerSecondsElement = document.querySelector("#timer-seconds");
+
+            if (!timerSecondsElement.value.trim()) return;
+            
+            const divElement = document.createElement('div');
+            divElement.classList.add('skill');
+            divElement.dataset.time = timerSecondsElement.value * SECOND_IN_MS;
+
+            timerSecondsElement.value = '';
+
+            document.body.appendChild(divElement);
+
+            startTimer(divElement);
+        })
+    </script>
+</body>
+</html>
