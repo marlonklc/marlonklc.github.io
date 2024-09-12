@@ -6,10 +6,10 @@
     user-select: none;
 }
 
-#game {
-    width: 600px;
-    height: 600px;
-    margin: calc(35vh - 250px) auto 0 auto;
+#game, #gameTemplate {
+    width: 500px;
+    height: 500px;
+    margin: calc(35vh - 300px) auto 0 auto;
     padding: 10px;
     background-color: #acacac;
     color: #fff;
@@ -20,7 +20,7 @@
     gap: 10px;
 }
 
-#game div {
+#game div, #gameTemplate div {
     border-radius: 50%;
     font-family: Helvetica, Arial, sans-serif;
     font-weight: bold;
@@ -32,7 +32,18 @@
     
 }
 
-#game div:is(#EMPTY) {
+#gameTemplate {
+    background-color: #efefef;
+    width: 150px;
+    height: 150px;
+    margin: 10px auto 0px auto;
+}
+
+#gameTemplate div.blue, #gameTemplate div.green, #gameTemplate div.yellow, #gameTemplate div.red {
+    border: 1px solid #000;
+}
+
+div:is(#EMPTY) {
     font-size: 6em;
 }
 
@@ -40,23 +51,23 @@
     box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
 }
 
-#game div.disabled {
+div.disabled {
     cursor: default;
 }
 
-#game div.blue {
+div.blue {
     background-color: #738fff;
 }
 
-#game div.red {
+div.red {
     background-color: #ce0000;
 }
 
-#game div.green {
+div.green {
     background-color: #12c702;
 }
 
-#game div.yellow {
+div.yellow {
     background-color: #f0fc05;
 }
 

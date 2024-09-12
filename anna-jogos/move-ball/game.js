@@ -50,7 +50,15 @@ const moveBall = {
     generateTemplate: function() {
         const shuffledBalls = this.randomizeBalls();
 
-        // show on page
+        let content = '';
+
+        for (i in shuffledBalls) {
+            const boardElement = shuffledBalls[i];
+
+            content += `<div class="${boardElement.class} disabled"></div>`;
+        }
+
+        document.querySelector("#gameTemplate").innerHTML = content;
     },
 
     randomizeBalls: function() {
