@@ -78,7 +78,7 @@ const moveBall = {
             }
         }
 
-        return emptyIndex;
+        return parseInt(emptyIndex);
     },
 
     moveBall: function(element, position) {
@@ -91,17 +91,22 @@ const moveBall = {
     },
 
     hoverInBall: function(element, position) {
-        // const emptyElementIndex = this.getEmptyBallIndex();
-        // const emptyElement = document.querySelector("#" + this.ballTypes.EMPTY.id);
+        element.classList.add('disable-animation');
 
-        // emptyElement.innerHTML = '&#8592;';
+        const emptyElementIndex = this.getEmptyBallIndex();
+        const emptyElement = document.querySelector("#" + this.ballTypes.EMPTY.id);
 
+        if (position + 1 === emptyElementIndex) emptyElement.innerHTML = '→';
+        if (position - 1 === emptyElementIndex) emptyElement.innerHTML = '←';
+        if (position - 1 > emptyElementIndex) emptyElement.innerHTML = '↑';
+        if (position + 1 < emptyElementIndex) emptyElement.innerHTML = '↓';
     },
 
     hoverOutBall: function(element, position) {
-        // const emptyElement = document.querySelector("#" + this.ballTypes.EMPTY.id);
+        const emptyElement = document.querySelector("#" + this.ballTypes.EMPTY.id);
+        emptyElement.innerHTML = '';
 
-        // emptyElement.innerHTML = '';
+        element.classList.remove('disable-animation');
     },
 
 
