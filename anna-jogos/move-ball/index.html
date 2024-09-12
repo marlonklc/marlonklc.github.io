@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Move Ball</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='style.css'>
+</head>
+<body>
+
+    <div id="game"></div>
+    
+    <script src='game.js'></script>
+
+    <div class="button-wrapper">
+        <button 
+            class="button-restart"
+            onClick="moveBall.start()"
+        >
+            Jogar novamente
+        </button>
+    </div>
+
+    <script> 
+        moveBall.init(document.querySelector('#game'));
+        moveBall.start();
+    </script>
+</body>
+</html>
