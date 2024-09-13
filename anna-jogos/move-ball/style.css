@@ -8,7 +8,7 @@
 
 #gameTemplate {
     display: inline-grid;
-    grid-template-columns: 30vw 30vw;
+    grid-template-columns: 10vw 10vw;
     align-items: center;
     justify-content: center;
     width: 100vw;
@@ -185,6 +185,46 @@ div.yellow::after {
 
 .disable-animation {
     animation: none !important;
+}
+
+@media all and (max-width: 1600px) {
+    #gameTemplate {
+        grid-template-columns: 15vw 15vw;
+    }
+}
+
+@media all and (max-width: 1000px) {
+    #gameTemplate {
+        grid-template-columns: 25vw 25vw;
+    }
+}
+
+@media all and (max-width: 650px) {
+    #gameTemplate {
+        grid-template-columns: 30vw 30vw;
+    }
+}
+
+@media all and (max-width: 550px) {
+    #gameTemplate {
+        grid-template-columns: 45vw 45vw;
+    }
+
+    #game {
+        width: 50vh;
+        height: 50vh;
+    }
+}
+
+@media all and (max-width: 450px) {
+    #game {
+        width: 47vh;
+        height: 47vh;
+    }
+
+    #gameTemplate {
+        grid-template-columns: 50vw 50vw;
+    }   
 }
 
 @keyframes arrow-position-animation{
