@@ -20,17 +20,8 @@ const moveBall = {
         7: [4,6, 8],
         8: [5, 7]
     },
-    // arrowPositionMovement: {
-    //     0: '←',
-    //     1: '↑',
-    //     1: '→',
-    //     1: '↓',
-
-    //     0: '→',
-    //     1: '↑',
-    //     1: '↑',
-    // },
-
+    timer: 0.0,
+    timerInterval: undefined,
 
     init: function(container) {
         this.containerElement = container;
@@ -41,15 +32,33 @@ const moveBall = {
     },
 
     start: function() {
+        this.startBoard();
+        this.generateTemplate();
+        this.startTimer();
+    },
+
+    startBoard: function() {
         const shuffledBalls = this.randomizeBalls();
         for (i in shuffledBalls) {
             this.board[i] = shuffledBalls[i];
         }
         this.updateBoard();
-        this.generateTemplate();
-        
-        document.querySelector(".button-restart").classList.remove('visible');
-        document.querySelector("#game").classList.remove('disabled');
+    },
+
+    startTimer: function() {
+        this.timer = 0.0;
+
+        // (function loop() {
+        //     this.timer += 0.1;
+
+        //     console.log(this)
+            
+        //     document.querySelector("#timer").innerHTML = `${this.timer.toFixed(1)}s`;
+
+        //     setTimeout(loop, 100);
+        // })();
+
+        //timerTimeout(this.timer);
     },
 
     generateTemplate: function() {
@@ -169,73 +178,5 @@ const moveBall = {
         alert(ballsPositionLikeTemplate ? 'ACERTOU!!!' : 'ERROU');
 
         this.start();
-    },
-
-    // makeAMove: async function(element, position) {
-    //     if (this.gameover) return;
-
-    //     if (this.board[position] === '') {
-    //         const playerSymbol = this.player.symbols[this.player.turnIndex];
-    //         this.board[position] = playerSymbol;
-    //         this.executeMove(element, playerSymbol);
-    //         this.player.toggleTurn();
-
-    //         const hasWinningSequence = this.checkWinningSequences(playerSymbol);
-
-    //         if (hasWinningSequence) {
-    //             alert(`PLAYER '${playerSymbol}' GANHOU!`);
-    //             this.gameOver();
-    //             return;
-    //         }
-
-    //         const boarFinishedFinishedAllSpaces = this.checkBoardFinishedAllWhiteSpaces();
-
-    //         if (boarFinishedFinishedAllSpaces) {
-    //             alert('NINGUÉM GANHOU NESSA RODADA.');
-    //             this.gameOver();
-    //             return;
-    //         }
-    //     }
-    // },
-
-    // executeMove: function(element, playerSymbol) {
-    //     const elementById = document.getElementById(element.id);
-    //     elementById.innerHTML = playerSymbol;
-    //     elementById.classList.add('disabled-selection');
-    // },
-
-    // gameOver: function() {
-    //     this.gameover = true;
-    //     document.querySelector(".button-restart").classList.add('visible');
-    //     document.querySelector("#game").classList.add('disabled');
-    // },
-
-    // checkBoardFinishedAllWhiteSpaces: function() {
-    //     const foundEmptySpace = this.board.find(i => i === '');
-    //     const allSpacesIsntEmpty = foundEmptySpace !== '';
-    //     return allSpacesIsntEmpty;
-    // },
-
-    // checkWinningSequences: function(playerSymbol) {
-    //     for (i in this.winningSequences) {
-    //         const playerSymbolMatchOnWinningSequences = 
-    //             this.board[this.winningSequences[i][0]] === playerSymbol &&
-    //             this.board[this.winningSequences[i][1]] === playerSymbol &&
-    //             this.board[this.winningSequences[i][2]] === playerSymbol;
-
-    //         if (playerSymbolMatchOnWinningSequences) return true;
-    //     }
-
-    //     return false;
-    // },
-
-    // startElements: function() {
-    //     let content = '';
-
-    //     for (i in this.board) {
-    //         content += `<div id="space-${i}" onClick="moveBall.makeAMove(this, ${i})">${this.board[i]}</div>`;
-    //     }
-
-    //     this.containerElement.innerHTML = content
-    // }
+    }
 };
