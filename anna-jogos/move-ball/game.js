@@ -7,6 +7,7 @@ const moveBall = {
         EMPTY: { id: 'EMPTY', class: 'disabled' }
     },
     board: Array(9).fill(''),
+    templateBoard: Array(9).fill(''),
     containerElement: null,
     allowIndexesMovement: {
         0: [1,3],
@@ -33,6 +34,10 @@ const moveBall = {
 
     init: function(container) {
         this.containerElement = container;
+        this.bellAudio = document.createElement('audio');
+        this.bellAudio.src = './bell-sound.mp3';
+        this.ballMovementAudio = document.createElement('audio');
+        this.ballMovementAudio.src = './ball-movement.mp3';
     },
 
     start: function() {
@@ -58,7 +63,9 @@ const moveBall = {
             content += `<div class="${boardElement.class} disabled"></div>`;
         }
 
-        document.querySelector("#gameTemplate").innerHTML = content;
+        this.templateBoard = shuffledBalls;
+
+        document.querySelector("#templateBoard").innerHTML = content;
     },
 
     randomizeBalls: function() {
@@ -90,6 +97,8 @@ const moveBall = {
     },
 
     moveBall: function(element, position) {
+        this.ballMovementAudio.play();
+
         const emptyIndex = this.getEmptyBallIndex();
 
         // swap from ball to empty space
@@ -140,7 +149,27 @@ const moveBall = {
         }
 
         this.containerElement.innerHTML = content
-    },    
+    },
+
+    tapBell: function() {
+        this.bellAudio.play();        
+
+        let ballsPositionLikeTemplate = true;
+
+        for (i in this.board) {
+
+            const boardElement = this.board[i];
+            const templateElement = this.templateBoard[i];
+
+            if (boardElement.id !== templateElement.id) {
+                ballsPositionLikeTemplate = false;
+            }
+        }
+
+        alert(ballsPositionLikeTemplate ? 'ACERTOU!!!' : 'ERROU');
+
+        this.start();
+    },
 
     // makeAMove: async function(element, position) {
     //     if (this.gameover) return;
