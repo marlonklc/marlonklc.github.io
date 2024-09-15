@@ -4,22 +4,14 @@ const moveBall = {
         RED: { id: 'RED', class: 'red' },
         BLUE: { id: 'BLUE', class: 'blue' },
         GREEN: { id: 'GREEN', class: 'green' },
+        PURPLE: { id: 'PURPLE', class: 'purple' },
+        PURPLE: { id: 'PURPLE', class: 'purple' },
         EMPTY: { id: 'EMPTY', class: 'disabled' }
     },
+    gridSizeXY: 3,
     board: Array(9).fill(''),
     templateBoard: Array(9).fill(''),
     containerElement: null,
-    allowIndexesMovement: {
-        0: [1,3],
-        1: [0,2,4],
-        2: [1,5],
-        3: [0,4,6],
-        4: [1,3,5, 7],
-        5: [2,4,8],
-        6: [3,7],
-        7: [4,6, 8],
-        8: [5, 7]
-    },
     timer: 0.0,
     timerInterval: undefined,
 
@@ -32,6 +24,9 @@ const moveBall = {
     },
 
     start: function() {
+        this.board = Array(this.gridSizeXY * this.gridSizeXY).fill('');
+        this.templateBoard = Array(this.gridSizeXY * this.gridSizeXY).fill('');
+
         this.startBoard();
         this.generateTemplate();
         this.startTimer();
@@ -61,6 +56,17 @@ const moveBall = {
         //timerTimeout(this.timer);
     },
 
+    changeGrid: function(element) {
+        const selectedOption = element.selectedOptions[0];
+
+        document.querySelector("#game").className = selectedOption.value + document.querySelector("#game").className.replaceAll('grid3x3', '').replaceAll('grid4x4', '');
+        document.querySelector("#gameTemplate").className = selectedOption.value + document.querySelector("#game").className.replaceAll('grid3x3', '').replaceAll('grid4x4', '');
+
+        this.gridSizeXY = parseInt(selectedOption.ariaValueText);
+
+        this.start();
+    },
+
     generateTemplate: function() {
         const shuffledBalls = this.randomizeBalls();
 
@@ -74,17 +80,30 @@ const moveBall = {
 
         this.templateBoard = shuffledBalls;
 
-        document.querySelector("#templateBoard").innerHTML = content;
+        document.querySelector("#gameTemplate").innerHTML = content;
     },
 
     randomizeBalls: function() {
-        const balls = [
+        const grid3x3 = [
             this.ballTypes.YELLOW, this.ballTypes.YELLOW,
             this.ballTypes.RED, this.ballTypes.RED,
             this.ballTypes.EMPTY,
             this.ballTypes.BLUE, this.ballTypes.BLUE,
             this.ballTypes.GREEN, this.ballTypes.GREEN,
         ];
+
+        const grid4x4 = [
+            this.ballTypes.YELLOW, this.ballTypes.YELLOW,this.ballTypes.YELLOW,
+            this.ballTypes.RED, this.ballTypes.RED, this.ballTypes.RED,
+            this.ballTypes.EMPTY,
+            this.ballTypes.BLUE, this.ballTypes.BLUE,this.ballTypes.BLUE,
+            this.ballTypes.GREEN, this.ballTypes.GREEN,this.ballTypes.GREEN,
+            this.ballTypes.PURPLE, this.ballTypes.PURPLE,this.ballTypes.PURPLE,
+        ];
+
+        let balls = grid3x3;
+
+        if (this.gridSizeXY === 4) balls = grid4x4;
 
         const shuffledBalls = balls.map(value => ({ value, sort: Math.random() }))
             .sort((a, b) => a.sort - b.sort)
@@ -105,36 +124,35 @@ const moveBall = {
         return parseInt(emptyIndex);
     },
 
-    moveBall: function(element, position) {
+    moveBall: function(element, currentIndex) {
         this.ballMovementAudio.play();
 
         const emptyIndex = this.getEmptyBallIndex();
 
         // swap from ball to empty space
-        [this.board[Math.min(emptyIndex, position)], this.board[Math.max(emptyIndex, position)]] = [this.board[Math.max(emptyIndex, position)], this.board[Math.min(emptyIndex, position)]]
+        [this.board[Math.min(emptyIndex, currentIndex)], this.board[Math.max(emptyIndex, currentIndex)]] = [this.board[Math.max(emptyIndex, currentIndex)], this.board[Math.min(emptyIndex, currentIndex)]]
 
         this.updateBoard();
     },
 
-    hoverInBall: function(element, position) {
+    hoverInBall: function(element, currentIndex) {
         element.classList.add('disable-animation');
 
         const emptyElementIndex = this.getEmptyBallIndex();
         const emptyElement = document.querySelector("#" + this.ballTypes.EMPTY.id);
 
-        if (position + 1 === emptyElementIndex) emptyElement.innerHTML = '→';
-        if (position - 1 === emptyElementIndex) emptyElement.innerHTML = '←';
-        if (position - 1 > emptyElementIndex) emptyElement.innerHTML = '↑';
-        if (position + 1 < emptyElementIndex) emptyElement.innerHTML = '↓';
+        if (currentIndex + 1 === emptyElementIndex) emptyElement.innerHTML = '→';
+        if (currentIndex - 1 === emptyElementIndex) emptyElement.innerHTML = '←';
+        if (currentIndex - 1 > emptyElementIndex) emptyElement.innerHTML = '↑';
+        if (currentIndex + 1 < emptyElementIndex) emptyElement.innerHTML = '↓';
     },
 
-    hoverOutBall: function(element, position) {
+    hoverOutBall: function(element, currentIndex) {
         const emptyElement = document.querySelector("#" + this.ballTypes.EMPTY.id);
         emptyElement.innerHTML = '';
 
         element.classList.remove('disable-animation');
     },
-
 
     updateBoard: function() {
         let content = '';
@@ -142,13 +160,17 @@ const moveBall = {
         const emptyIndex = this.getEmptyBallIndex();
 
         for (i in this.board) {
-            const isDisabledIndex = !this.allowIndexesMovement[emptyIndex].includes(parseInt(i));
+            const currentIndex = parseInt(i);
+
+            const isEnabledIndex = (currentIndex - 1 === emptyIndex && currentIndex % this.gridSizeXY !== 0) || 
+                (currentIndex + 1 === emptyIndex && emptyIndex % this.gridSizeXY !== 0) || 
+                currentIndex - this.gridSizeXY === emptyIndex || currentIndex + this.gridSizeXY === emptyIndex;
             
             const boardElement = this.board[i];
 
             content += `<div 
                 id="${boardElement.id !== this.ballTypes.EMPTY.id ? `${boardElement.id}-${i}` : this.ballTypes.EMPTY.id}"
-                class="${boardElement.class} ${isDisabledIndex ? 'disabled' : 'ball-allow-movement'}" 
+                class="${boardElement.class} ${isEnabledIndex ? 'ball-allow-movement' : 'disabled'}" 
                 onClick="moveBall.moveBall(this, ${i})"
                 onMouseOver="moveBall.hoverInBall(this, ${i})"
                 onMouseOut="moveBall.hoverOutBall(this, ${i})"

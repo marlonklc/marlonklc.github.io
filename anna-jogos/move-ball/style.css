@@ -6,15 +6,15 @@
     user-select: none;
 }
 
-#gameTemplate {
+#gameMenu {
     display: inline-grid;
-    grid-template-columns: 10vw 10vw;
+    grid-template-columns: 10vw 10vw 10vw;
     align-items: center;
     justify-content: center;
-    width: 100vw;
+    width: 99vw;
 }
 
-#gameTemplate span {
+#gameMenu span {
     height: 12vh;
     width: 12vh;
     border: 5px solid #ccc;
@@ -24,16 +24,25 @@
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
 }
 
-#gameTemplate span:hover {
+#gameMenu span:hover {
     background-color: #eee;
 }
 
-#gameTemplate span img {
+#gameMenu span img {
     height: 100%;
     max-height: 12vh;
+    animation: bell-animation 4s infinite linear;
 }
 
-#templateBoard {
+.grid-select { 
+    width: 100%;
+    height: 20%;
+    text-align: center;
+    border: 3px solid #ccc;
+    font-size: 1.1em;
+}
+
+#gameTemplate {
     width: 15vh;
     height: 15vh;
     margin: 1vh auto;
@@ -48,11 +57,11 @@
     float: left;
 }
 
-#templateBoard div {
+#gameTemplate div {
     border-radius: 50%;
 }
 
-#templateBoard div.blue, #gameTemplate div.green, #gameTemplate div.yellow, #gameTemplate div.red {
+#gameTemplate div.blue, #gameMenu div.green, #gameMenu div.yellow, #gameMenu div.red, #gameMenu div.purple {
     border: 1px solid #000;
 }
 
@@ -71,6 +80,14 @@
     grid-template: repeat(3, 1fr) / repeat(3, 1fr);
     gap: 10px;
     clear: both;
+}
+
+.grid3x3 {
+    grid-template: repeat(3, 1fr) / repeat(3, 1fr) !important;
+}
+
+.grid4x4 {
+    grid-template: repeat(4, 1fr) / repeat(4, 1fr) !important;
 }
 
 #game div {
@@ -149,6 +166,19 @@ div.yellow::after {
     box-shadow: 0px 0px 10px #f9ff8b;
 }
 
+div.purple {
+    background-color: #8e2bff;
+}
+
+div.purple::after {
+    background-color: #8011ff;
+    width: 60%;
+    height: 60%;
+    content: '';
+    border-radius: 50%;
+    box-shadow: 0px 0px 10px #ae67ff;
+}
+
 #game div.ball-allow-movement:hover {
     transform: scale(.97);
     border: 4px solid #ffc;
@@ -188,26 +218,32 @@ div.yellow::after {
 }
 
 @media all and (max-width: 1600px) {
-    #gameTemplate {
-        grid-template-columns: 15vw 15vw;
+    #gameMenu {
+        grid-template-columns: 12vw 10vw 12vw;
+    }
+}
+
+@media all and (max-width: 1200px) {
+    #gameMenu {
+        grid-template-columns: 17vw 17vw 17vw;
     }
 }
 
 @media all and (max-width: 1000px) {
-    #gameTemplate {
-        grid-template-columns: 25vw 25vw;
+    #gameMenu {
+        grid-template-columns: 20vw 20vw 20vw;
     }
 }
 
 @media all and (max-width: 650px) {
-    #gameTemplate {
-        grid-template-columns: 30vw 30vw;
+    #gameMenu {
+        grid-template-columns: 28vw 28vw 28vw;
     }
 }
 
 @media all and (max-width: 550px) {
-    #gameTemplate {
-        grid-template-columns: 45vw 45vw;
+    #gameMenu {
+        grid-template-columns: 35vw 28vw 35vw;
     }
 
     #game {
@@ -222,7 +258,7 @@ div.yellow::after {
         height: 47vh;
     }
 
-    #gameTemplate {
+    #gameMenu1 {
         grid-template-columns: 50vw 50vw;
     }   
 }
@@ -252,5 +288,26 @@ div.yellow::after {
     100%{
         transform:scale(1);
         box-shadow: 0 0 0 5px rgba(0,0,0,0)
+    }
+}
+
+@keyframes bell-animation {
+    0%,85% {
+        transform: rotate(0deg);
+    }
+    90% {
+        transform: rotate(-15deg)
+    }
+    92% {
+        transform: rotate(15deg)
+    }
+    94% {
+        transform: rotate(-5deg);
+    }
+    97% {
+        transform: rotate(5deg);
+    }
+    100% {
+        transform: rotate(0deg);
     }
 }

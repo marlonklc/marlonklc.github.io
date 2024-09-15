@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
@@ -7,24 +8,31 @@
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href='style.css'>
 </head>
+
 <body>
 
-    <div id="gameTemplate">
+    <div id="gameMenu">
         <span onClick="moveBall.tapBell()">
             <img src="./bell.png" />
             <b id="timer"></b>
         </span>
 
-        <div id="templateBoard"></div>
+        <select class="grid-select" onChange="moveBall.changeGrid(this)">
+            <option aria-valuetext="3" value="grid3x3">3x3</option>
+            <option aria-valuetext="4"  value="grid4x4">4x4</option>
+        </select>
+
+        <div id="gameTemplate"></div>
     </div>
 
     <div id="game"></div>
-    
+
     <script src='game.js'></script>
 
-    <script> 
+    <script>
         moveBall.init(document.querySelector('#game'));
         moveBall.start();
     </script>
 </body>
+
 </html>
